@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Software Engineer",
+    "company": "Tech Company Inc.",
+    "period": "2022 - Present",
+    "description": "Developed and maintained web applications using Python, Flask, and React. Collaborated with cross-functional teams."
+  },
+  {
+    "title": "Junior Developer",
+    "company": "Startup Solutions",
+    "period": "2020 - 2022",
+    "description": "Assisted senior developers, worked on front-end tasks using HTML, CSS, JavaScript."
+  }
+]

@@ -1,0 +1,46 @@
+/* static/css/style.css */
+
+body {
+    padding-top: 56px;
+    /* Adjust based on navbar height */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    /* Make main content area grow to fill space */
+}
+
+footer {
+    flex-shrink: 0;
+    /* Prevent footer from shrinking */
+}
+
+/* Make badges slightly larger */
+.badge.fs-6 {
+    font-size: 0.9rem !important;
+    padding: 0.4em 0.6em;
+}
+
+/* Add subtle shadow to cards */
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style section headers */
+section h2 {
+    border-bottom: 2px solid #dee2e6;
+    /* Light gray border */
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: #343a40;
+    /* Dark gray */
+}
+
+/* Highlight required fields */
+label .text-danger {
+    font-size: 0.8em;
+    vertical-align: super;
+}

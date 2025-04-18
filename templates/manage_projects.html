@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Projects{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Manage Projects</h2>
+
+<div class="card mb-4">
+  <div class="card-header">Add New Project</div>
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('manage_projects') }}">
+      <div class="mb-3">
+        <label for="project_title" class="form-label">Project Title <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="project_title" name="project_title" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="project_url" class="form-label">Project URL (Optional)</label>
+        <input type="url" class="form-control" id="project_url" name="project_url" placeholder="https://example.com">
+      </div>
+
+      <div class="mb-3">
+        <label for="project_cover" class="form-label">Cover Image URL (Optional)</label>
+        <input type="url" class="form-control" id="project_cover" name="project_cover" placeholder="https://example.com/image.jpg">
+      </div>
+
+      <div class="mb-3">
+        <label for="project_category" class="form-label">Category (Optional)</label>
+        <input type="text" class="form-control" id="project_category" name="project_category" placeholder="e.g., Web Development, Data Science">
+      </div>
+
+      <div class="mb-3">
+        <label for="project_description" class="form-label">Description <span class="text-danger">*</span></label>
+        <textarea class="form-control" id="project_description" name="project_description" rows="3" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success">Add Project</button>
+    </form>
+  </div>
+</div>
+
+<h3 class="mt-5">Current Projects</h3>
+{% if projects %}
+<ul class="list-group">
+  {% for project in projects %}
+  <li class="list-group-item">
+    <h5>{{ project.title }}</h5>
+    {% if project.category %}
+      <span class="badge bg-secondary mb-1">{{ project.category }}</span><br>
+    {% endif %}
+    {% if project.cover %}
+      <img src="{{ project.cover }}" class="img-fluid mb-2" alt="{{ project.title }} cover" style="max-height: 150px; object-fit: cover;"><br>
+    {% endif %}
+    {% if project.url and project.url != '#' %}
+      <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer" class="small text-muted">{{ project.url }}</a><br>
+    {% endif %}
+    <p class="mb-0">{{ project.description }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No projects have been added yet.</p>
+{% endif %}
+
+{% endblock %}

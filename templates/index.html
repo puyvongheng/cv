@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user_info.name }} - CV{% endblock %}
+
+{% block content %}
+  <header class="p-5 mb-4 bg-light rounded-3 text-center">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">{{ user_info.name }}</h1>
+      <p class="fs-4">{{ user_info.title }}</p>
+      <p class="col-md-8 fs-5 mx-auto">{{ user_info.summary }}</p>
+      <div class="d-flex justify-content-center gap-2 mt-4">
+        {% if user_info.email %}
+        <a href="mailto:{{ user_info.email }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-envelope"></i> Email</a>
+        {% endif %}
+        {% if user_info.phone %}
+        <a href="tel:{{ user_info.phone }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-phone"></i> Phone</a>
+        {% endif %}
+        {% if user_info.linkedin %}
+        <a href="{{ user_info.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-info btn-sm"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        {% endif %}
+        {% if user_info.github %}
+        <a href="{{ user_info.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm"><i class="fab fa-github"></i> GitHub</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <section id="experience" class="mb-4">
+        <h2><i class="fas fa-briefcase me-2"></i>Work Experience</h2>
+        {% for job in experience %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ job.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ job.company }} | {{ job.period }}</h6>
+            <p class="card-text">{{ job.description }}</p>
+          </div>
+        </div>
+        {% else %}
+        <p>No work experience listed.</p>
+        {% endfor %}
+      </section>
+
+      <section id="education" class="mb-4">
+        <h2><i class="fas fa-graduation-cap me-2"></i>Education</h2>
+        {% for edu in education %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ edu.degree }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ edu.institution }} | {{ edu.period }}</h6>
+            {% if edu.details %}<p class="card-text">{{ edu.details }}</p>{% endif %}
+          </div>
+        </div>
+        {% else %}
+        <p>No education listed.</p>
+        {% endfor %}
+      </section>
+    </div>
+
+    <div class="col-lg-4">
+      <section id="skills" class="mb-4">
+         <h2><i class="fas fa-cogs me-2"></i>Skills</h2>
+         <div class="card">
+            <div class="card-body">
+                {% for skill in skills %}
+                <span class="badge bg-primary me-1 mb-1 fs-6">{{ skill }}</span>
+                {% else %}
+                <p>No skills listed.</p>
+                {% endfor %}
+            </div>
+         </div>
+      </section>
+
+
+<section id="projects" class="mb-4">
+  <h2><i class="fas fa-project-diagram me-2"></i>Projects</h2>
+
+  {% if projects %}
+    <!-- Display the first project in full -->
+    <div class="card mb-3">
+      {% if projects[0].cover %}
+        <img src="{{ projects[0].cover }}" class="card-img-top" alt="{{ projects[0].title }} cover" style="max-height: 300px; object-fit: cover;">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ projects[0].title }}</h5>
+        {% if projects[0].category %}
+          <a href="{{ url_for('view_category', category=projects[0].category) }}" class="badge bg-secondary mb-2">
+            {{ projects[0].category }}
+          </a><br>
+        {% endif %}
+        <p class="card-text">{{ projects[0].description }}</p>
+        {% if projects[0].url and projects[0].url != '#' %}
+          <a href="{{ projects[0].url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success mb-2">
+            <i class="fas fa-link"></i> View Project
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Display the rest of the projects with only their category and title -->
+    <h3>Other Projects</h3>
+    <ul>
+      {% for project in projects[1:] %}
+        <li>
+          <a href="{{ url_for('view_category', category=project.category) }}">
+            {{ project.title }} - <span class="badge bg-secondary">{{ project.category }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No projects listed.</p>
+  {% endif %}
+</section>
+
+
+
+
+    </div>
+  </div>
+{% endblock %}
