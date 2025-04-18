@@ -184,4 +184,4 @@ if __name__ == '__main__':
     print(generate_password_hash("your_password_here", method='pbkdf2:sha256'))
 
  
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
